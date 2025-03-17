@@ -1,7 +1,7 @@
 import reflex as rx
 from ..state import State
 
-@rx.page(route="/add")
+@rx.page(route="/add", on_load=State.list_categories())
 def add_product() -> rx.Component:
     # categories = get_categories()
     return rx.vstack(

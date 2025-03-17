@@ -25,3 +25,4 @@ FRONTEND_PORT=3001 sets the http port
 - the database is created by running `reflex db init`
 - when changes to the models are made reflex uses alembic to create a migration script: `reflex db makemigrations --message "something changed"`
 - after checking the migration script you can execute it using `reflex db migrate`
+- populate with default data: `python freezer\models.py`
