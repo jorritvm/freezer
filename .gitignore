@@ -1,3 +1,7 @@
+.web
+assets/external/
+.states
+*.db
 # office temp files
 ~$*
 
