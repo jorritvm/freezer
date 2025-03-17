@@ -1,4 +1,8 @@
+import signal
+import sys
 import reflex as rx
+
+from .style import freezer_theme
 
 # # Function to fetch categories from API
 # def get_categories():
@@ -31,13 +35,16 @@ import reflex as rx
 
 
 app = rx.App(
-    # theme=rx.theme(
-    #     appearance="light",
-    #     accent_color="sky",
-    #     gray_color="auto",
-    #     scaling="110%",
-    #     radius="large",
-    # )
+    theme=freezer_theme
 )
+
+# Handle Ctrl+C properly
+def shutdown_handler(sig, frame):
+    print("Shutting down Reflex...")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, shutdown_handler)
+
+
 # app.add_page(index, title="Freezer")
 # app.add_page(add_product, route="/add", title="Toevoegen Product")
