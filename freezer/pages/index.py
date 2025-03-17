@@ -14,6 +14,7 @@ def index() -> rx.Component:
                 width="100vw",  # Full width
                 height="32vh",  # 1/4 of screen height
                 font_size="2em",  # Increase font size
+                on_click=lambda: rx.redirect("/category_filter"),
             ),
             rx.button(
                 rx.flex(

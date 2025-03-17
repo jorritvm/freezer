@@ -1,4 +1,4 @@
 from . import models, state, style
-from .pages import index, content, add
+from .pages import index, content, add, category_filter
 
-__all__ = ["models", "state", "style", "index", "content", "add"]
+__all__ = ["models", "state", "style", "index", "content", "add", "category_filter"]
