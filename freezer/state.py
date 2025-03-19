@@ -72,3 +72,13 @@ class State(rx.State):
                 session.add(this_article_expiration)
                 session.commit()
                 logger.debug(f"Added expiration: {this_article_expiration}")
+
+    def remove_article(self, item_id: int):
+        """Remove an item by its ID."""
+        with rx.session() as session:
+            article_to_remove = session.exec(FreezerContent.select().where(FreezerContent.id == item_id)).first()
+            if article_to_remove:
+                session.delete(article_to_remove)
+                session.commit()
+                logger.debug(f"Removed article with id {item_id}")
+        self.contents = [item for item in self.contents if item.id != item_id]

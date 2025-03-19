@@ -45,7 +45,10 @@ def articly_entry(freezer_article: FreezerContent) -> rx.Component:
         rx.text(freezer_article.article),
         rx.text(freezer_article.expiration_date),
         rx.icon("pencil", width="30px"),
-        rx.icon("circle-x", width="30px"),
+        rx.icon("circle-x",
+                width="30px",
+                on_click=lambda: State.remove_article(freezer_article.id),
+                cursor="pointer"),
         columns="1fr 3fr 2fr 30px 30px", # columns="5",
         gap="10px",  # Add spacing between elements
         padding="10px",  # Add padding inside the border
