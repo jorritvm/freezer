@@ -2,7 +2,7 @@ import reflex as rx
 from ..state import State
 from ..models import FreezerContent
 
-@rx.page(route="/content/[category]", on_load=State.list_contents())
+@rx.page(route="/content/[category]/[[sort_by]]", on_load=State.list_contents())
 def content_by_category() -> rx.Component:
     """A page that updates based on the route."""
     # Displays the dynamic part of the URL, the post ID
@@ -11,7 +11,7 @@ def content_by_category() -> rx.Component:
         rx.foreach(State.contents, article_entry),
         gap="0px"
     )
-    # return
+
 
 def home_and_filter_buttons() -> rx.Component:
     return rx.hstack(

@@ -38,11 +38,20 @@ class State(rx.State):
     def list_contents(self):
         logger.debug(f"Listing contents for category: {self.category}")
         category = self.category
+        if self.sort_by == "category":
+            order1 = FreezerContent.category
+            order2 = FreezerContent.expiration_date
+        elif self.sort_by == "article":
+            order1 = FreezerContent.article
+            order2 = FreezerContent.expiration_date
+        else:
+            order1 = FreezerContent.expiration_date
+            order2 = FreezerContent.article
         with (rx.session() as session):
             if not category or category == "all":
-                query_result = session.exec(FreezerContent.select().order_by(FreezerContent.article)).all()
+                query_result = session.exec(FreezerContent.select().order_by(order1, order2)).all()
             else:
-                query_result = session.exec(FreezerContent.select().where(FreezerContent.category == category).order_by(FreezerContent.article)).all()
+                query_result = session.exec(FreezerContent.select().where(FreezerContent.category == category).order_by(order1, order2)).all()
             logger.debug(f"Query result returns {len(query_result)} items")
 
             self.contents = [

@@ -2,14 +2,16 @@
 
 ## Backlog (most urgent on top)
 - add an edit window to the content list
-- improve article_add page by proactively listing expiration date
+- improve article_add page by proactively listing default expiration duration
 - make content list interactively sortable
-- optimize for mobile
+- identify issues for mobile
+- fix mobile screen height - no scrolling!
 - set up docker deployment
 - deploy on homeserver
+- nice to have: make the epxiration status an enum instead of a string
 
 ## In Progress
-
+- make content list interactively sortable
 
 
 ## Done (most recent on top)
