@@ -4,12 +4,17 @@
 - add an edit window to the content list
 - improve article_add page by proactively listing expiration date
 - make content list interactively sortable
+- optimize for mobile
+- set up docker deployment
+- deploy on homeserver
 
 ## In Progress
-- show comment in overview
+
 
 
 ## Done (most recent on top)
+- add confirmation box to delete feature
+- show comment in overview
 - show expired items in red
 - show items to expire in 10 days in yellow
 - add a remove article feature to the content list
