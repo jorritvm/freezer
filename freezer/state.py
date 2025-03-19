@@ -25,6 +25,7 @@ class FreezerContentState:
 class State(rx.State):
     categories: list[str] = []
     contents: list[FreezerContentState] = []
+    memoize_sort_by: str = "expiration_date"
 
     @rx.event
     def list_categories(self):
@@ -40,6 +41,7 @@ class State(rx.State):
         logger.debug(f"State variables: category={getattr(self, 'category', None)}, sort_by={getattr(self, 'sort_by', None)}")
         logger.debug(f"Listing contents for category: {self.category} sorted by {self.sort_by}")
         category = self.category
+        self.memoize_sort_by = self.sort_by
         if self.sort_by == "category":
             order1 = FreezerContent.category
             order2 = FreezerContent.expiration_date

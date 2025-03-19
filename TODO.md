@@ -1,6 +1,7 @@
 # TODO
 
 ## Backlog (most urgent on top)
+- when successfully adding an article wipe the form
 - improve article_add page by proactively listing default expiration duration
 - identify issues for mobile
 - fix mobile screen height - no scrolling!
@@ -13,6 +14,7 @@
 
 
 ## Done (most recent on top)
+- remember sorting after category filter
 - make content list interactively sortable
 - add confirmation box to delete feature
 - show comment in overview

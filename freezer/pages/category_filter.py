@@ -10,7 +10,7 @@ def category_filter() -> rx.Component:
             category,
             height="100%",  # Make the button take the full height of the grid cell
             font_size="2em",
-            on_click=lambda: rx.redirect("/content/" + category + "/expiration_date"),
+            on_click=lambda: rx.redirect("/content/" + category + "/" + State.memoize_sort_by),
         )
 
     all_button = rx.button(
@@ -18,7 +18,7 @@ def category_filter() -> rx.Component:
         color_scheme="green",
         height="100%",  # Make the button take the full height of the grid cell
         font_size="2em",
-        on_click=lambda: rx.redirect("/content/all/expiration_date"),
+        on_click=lambda: rx.redirect("/content/all/" + State.memoize_sort_by),
     )
 
     return rx.grid(
