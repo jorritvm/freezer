@@ -14,7 +14,7 @@ def index() -> rx.Component:
                 width="100vw",
                 height="45vh",
                 font_size="2em",  # Increase font size
-                on_click=lambda: rx.redirect("/content/all"),
+                on_click=lambda: rx.redirect("/content/all/expiration_date"),
             ),
             rx.button(
                 rx.flex(

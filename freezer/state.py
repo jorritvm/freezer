@@ -36,7 +36,9 @@ class State(rx.State):
 
     @rx.event
     def list_contents(self):
-        logger.debug(f"Listing contents for category: {self.category}")
+        logger.debug(f"Raw Reflex state: {self.dict()}")
+        logger.debug(f"State variables: category={getattr(self, 'category', None)}, sort_by={getattr(self, 'sort_by', None)}")
+        logger.debug(f"Listing contents for category: {self.category} sorted by {self.sort_by}")
         category = self.category
         if self.sort_by == "category":
             order1 = FreezerContent.category
@@ -44,7 +46,7 @@ class State(rx.State):
         elif self.sort_by == "article":
             order1 = FreezerContent.article
             order2 = FreezerContent.expiration_date
-        else:
+        else: #expiration date or non existant
             order1 = FreezerContent.expiration_date
             order2 = FreezerContent.article
         with (rx.session() as session):

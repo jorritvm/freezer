@@ -10,15 +10,15 @@ def category_filter() -> rx.Component:
             category,
             height="100%",  # Make the button take the full height of the grid cell
             font_size="2em",
-            on_click=lambda: rx.redirect("/content/" + category),
+            on_click=lambda: rx.redirect("/content/" + category + "/expiration_date"),
         )
 
     all_button = rx.button(
-        "No filter",
+        "geen filter",
         color_scheme="green",
         height="100%",  # Make the button take the full height of the grid cell
         font_size="2em",
-        on_click=lambda: rx.redirect("/content/all"),
+        on_click=lambda: rx.redirect("/content/all/expiration_date"),
     )
 
     return rx.grid(

@@ -2,16 +2,33 @@ import reflex as rx
 from ..state import State
 from ..models import FreezerContent
 
-@rx.page(route="/content/[category]/[[sort_by]]", on_load=State.list_contents())
+@rx.page(route="/content/[category]/[sort_by]/", on_load=State.list_contents)
 def content_by_category() -> rx.Component:
     """A page that updates based on the route."""
     # Displays the dynamic part of the URL, the post ID
     return rx.vstack(
         home_and_filter_buttons(),
+        header_row(),
         rx.foreach(State.contents, article_entry),
         gap="0px"
     )
 
+def header_row() -> rx.Component:
+    return rx.grid(
+        rx.text("Categorie", font_weight="bold", cursor="pointer", on_click=lambda: rx.redirect("/content/" + State.category + "/category")),
+        rx.text("Artikel", font_weight="bold", cursor="pointer", on_click=lambda: rx.redirect("/content/" + State.category + "/article")),
+        rx.text("Vervaldatum", font_weight="bold", cursor="pointer", on_click=lambda: rx.redirect("/content/" + State.category + "/expiration_date")),
+        rx.text(""),  # Empty cell for alignment
+        rx.text(""),  # Empty cell for alignment
+        rx.text(""),  # Empty cell for alignment
+        columns="1fr 3fr 2fr 30px 30px 30px",
+        gap="10px",
+        padding="10px",
+        border="1px solid black",
+        width="100%",
+        bg="lightgray",
+        align_items="center",
+    )
 
 def home_and_filter_buttons() -> rx.Component:
     return rx.hstack(
