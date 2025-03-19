@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 class State(rx.State):
     categories: list[str] = []
+    contents: list[FreezerContent] = []
 
     @rx.event
     def list_categories(self):
@@ -20,10 +21,17 @@ class State(rx.State):
             # logger.debug(f"Categories: {self.categories}")
 
     @rx.event
-    def get_contents(self):
+    def list_contents(self):
+        logger.debug(f"Listing contents for category: {self.category}")
+
+        category = self.category
         with (rx.session() as session):
-            query_result = session.exec(FreezerContent.select()).all()
-            return query_result
+            if not category or category == "all":
+                query_result = session.exec(FreezerContent.select().order_by(FreezerContent.article)).all()
+            else:
+                query_result = session.exec(FreezerContent.select().where(FreezerContent.category == category).order_by(FreezerContent.article)).all()
+            logger.debug(f"Query result returns {len(query_result)} items")
+            self.contents = list(query_result)
 
     @rx.event
     def add_article(self, form_data: dict):

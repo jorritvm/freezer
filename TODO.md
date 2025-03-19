@@ -1,15 +1,17 @@
 # TODO
 
 ## Backlog (most urgent on top)
-- improve article_add page by proactively listing expiration date
-- create content list frontend
-- make content list interactively sortable
-- add an edit window to the content list
 - add a remove article feature to the content list
+- add an edit window to the content list
+- improve article_add page by proactively listing expiration date
+- make content list interactively sortable
 
 ## In Progress
 
+
 ## Done (most recent on top)
+- add filter to content list
+- create content list frontend
 - create article_add page backend
 - add a back button to the category filter
 - create category selection frontend

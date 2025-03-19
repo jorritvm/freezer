@@ -41,12 +41,13 @@ def add_product() -> rx.Component:
                     width="100vw",
                     height="10vh",
                 ),
-                rx.button(
-                    "Terug",
-                    on_click=lambda: rx.redirect("/"),
-                    width="100vw",
-                    height="10vh", ),
             on_submit=State.add_article,
+            ),
+            rx.button(
+                "Terug",
+                on_click=lambda: rx.redirect("/"),
+                width="100vw",
+                height="10vh",
             ),
             align="center",
             width="100%",
