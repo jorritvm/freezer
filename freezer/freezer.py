@@ -46,5 +46,3 @@ def shutdown_handler(sig, frame):
 signal.signal(signal.SIGINT, shutdown_handler)
 
 
-# app.add_page(index, title="Freezer")
-# app.add_page(add_product, route="/add", title="Toevoegen Product")
