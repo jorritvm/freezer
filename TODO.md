@@ -1,17 +1,17 @@
 # TODO
 
 ## Backlog (most urgent on top)
-
 - add an edit window to the content list
 - improve article_add page by proactively listing expiration date
 - make content list interactively sortable
 
-
 ## In Progress
-- show expired items in red
-- show items to expire in 10 days in yellow
+- show comment in overview
+
 
 ## Done (most recent on top)
+- show expired items in red
+- show items to expire in 10 days in yellow
 - add a remove article feature to the content list
 - add filter to content list
 - create content list frontend

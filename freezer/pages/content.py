@@ -37,8 +37,15 @@ def home_and_filter_buttons() -> rx.Component:
     )
 
 def articly_entry(freezer_article: FreezerContent) -> rx.Component:
-    # make the state filter the FreezerContent by this category parameter
-    State.list_contents()
+    background_color = rx.cond(
+        freezer_article.expired_status == "expired",
+        "lightcoral",
+        rx.cond(
+            freezer_article.expired_status == "almost",
+            "yellow",
+            "white"
+        )
+    )
 
     return rx.grid(
         rx.text(freezer_article.category),
@@ -54,4 +61,5 @@ def articly_entry(freezer_article: FreezerContent) -> rx.Component:
         padding="10px",  # Add padding inside the border
         border="1px solid black",  # Add a border around each entry
         width="100%",  # Ensure the entry covers the full width
+        bg=background_color,
     )
