@@ -1,8 +1,8 @@
 # TODO
 
 ## Backlog (most urgent on top)
-- - add an edit window to the content list
-- improve article_add page by proactively listing default expiration duration
+- add an edit window to the content list
+
 - identify issues for mobile
 - fix mobile screen height - no scrolling!
 - set up docker deployment
@@ -14,6 +14,7 @@
 
 
 ## Done (most recent on top)
+- improve article_add page by proactively listing default expiration duration
 - remember non submitted input form when going back and forth between pages
 - wipe the form when an article is added successfully
 - add a quantity field to the add article page

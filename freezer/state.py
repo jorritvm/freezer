@@ -26,6 +26,7 @@ class State(rx.State):
     categories: list[str] = []
     contents: list[FreezerContentState] = []
     memoize_sort_by: str = "expiration_date"
+    default_expiration: list[DefaultExpiration] = []
 
     add_validation: str = ""  # Stores reply message when user tried adding an article
     add_category: str = ""
@@ -36,14 +37,40 @@ class State(rx.State):
 
     def set_add_category(self, value: str):
         self.add_category = value
+        self.update_expected_expiration_date()
     def set_add_article(self, value: str):
         self.add_article = value
+        self.update_expected_expiration_date()
     def set_add_expiration_date(self, value: str):
         self.add_expiration_date = value
     def set_add_quantity(self, value: str):
         self.add_quantity = value
     def set_add_comment(self, value: str):
         self.add_comment = value
+
+    def update_expected_expiration_date(self):
+        category = self.add_category
+        article = self.add_article
+        # loop through self.default_expiration and find a match for category and article
+        for default_expiration in self.default_expiration:
+            if default_expiration.category == category and default_expiration.article == article:
+                self.add_expiration_date = str(default_expiration.expiration_duration)
+                return
+        # if no match is found for article, try to find a match for category
+        for default_expiration in self.default_expiration:
+            if default_expiration.category == category and default_expiration.article == "all":
+                self.add_expiration_date = str(default_expiration.expiration_duration)
+                return
+
+    def on_load_add(self):
+        self.list_categories()
+        self.list_default_expiration()
+
+    def list_default_expiration(self):
+        logger.debug(f"Listing default expirations")
+        with rx.session() as session:
+            self.default_expiration = session.exec(DefaultExpiration.select()).all()
+        logger.debug(f"self.default_expiration: {self.default_expiration}")
 
     @rx.event
     def list_categories(self):
