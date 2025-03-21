@@ -1,19 +1,23 @@
 # TODO
 
 ## Backlog (most urgent on top)
-- when successfully adding an article wipe the form
+- - add an edit window to the content list
 - improve article_add page by proactively listing default expiration duration
 - identify issues for mobile
 - fix mobile screen height - no scrolling!
 - set up docker deployment
 - deploy on homeserver
 - nice to have: make the epxiration status an enum instead of a string
+- clean up codebase, add some docstrings
 
 ## In Progress
-- add an edit window to the content list
 
 
 ## Done (most recent on top)
+- remember non submitted input form when going back and forth between pages
+- wipe the form when an article is added successfully
+- add a quantity field to the add article page
+- add a reply message when an article is added
 - remember sorting after category filter
 - make content list interactively sortable
 - add confirmation box to delete feature

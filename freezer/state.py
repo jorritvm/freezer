@@ -27,6 +27,24 @@ class State(rx.State):
     contents: list[FreezerContentState] = []
     memoize_sort_by: str = "expiration_date"
 
+    add_validation: str = ""  # Stores reply message when user tried adding an article
+    add_category: str = ""
+    add_article: str = ""
+    add_expiration_date: str = ""
+    add_quantity: str = "1"
+    add_comment: str = ""
+
+    def set_add_category(self, value: str):
+        self.add_category = value
+    def set_add_article(self, value: str):
+        self.add_article = value
+    def set_add_expiration_date(self, value: str):
+        self.add_expiration_date = value
+    def set_add_quantity(self, value: str):
+        self.add_quantity = value
+    def set_add_comment(self, value: str):
+        self.add_comment = value
+
     @rx.event
     def list_categories(self):
         logger.debug(f"Listing categories")
@@ -72,27 +90,64 @@ class State(rx.State):
             ]
 
     @rx.event
-    def add_article(self, form_data: dict):
-        logger.debug(f"Adding article from form data: {form_data}")
+    def handle_add_article(self, form_data: dict):
+        logger.debug(f"Validating add article form: {form_data}")
+
+        # Validate form fields
+        self.add_validation = ""  # Reset previous errors
         if not form_data:
+            self.add_validation = "Form is empty."
             return
-        if form_data['article'] is None or  form_data['article'] == "":
+        if not form_data.get("category"):
+            self.add_validation = "Categorie mag niet leeg zijn."
+            return
+        if form_data.get("category") == "":
+            self.add_validation = "Categorie mag niet leeg zijn."
+            return
+        if not form_data.get("article"):
+            self.add_validation = "Artikel mag niet leeg zijn."
+            return
+        if not form_data.get("expiration_date"):
+            self.add_validation = "Vervaldatum mag niet leeg zijn."
+            return
+        if not can_be_cat_to_int(form_data.get("expiration_date")):
+            self.add_validation = "Vervaldatum moet een getal zijn."
+            return
+        if not form_data.get("quantity"):
+            self.add_validation = "Hoeveelheid mag niet leeg zijn."
+            return
+        if not can_be_cat_to_int(form_data.get("quantity")):
+            self.add_validation = "Hoeveelheid moet een getal zijn."
             return
 
+        # If valid, add the article to the database
+        self._add_article_to_db(form_data)  # Extract DB logic to a helper function
+
+        # On success, reset form fields
+        self.add_category = ""
+        self.add_article = ""
+        self.add_expiration_date = ""
+        self.add_quantity = "1"
+        self.add_comment = ""
+        self.add_validation = "Success"
+
+    def _add_article_to_db(self, form_data: dict):
+        logger.debug(f"adding article to DB now")
         # add the article
         current_date = datetime.now().date()
         current_date_iso_str = current_date.isoformat()
         expiration_date = current_date + timedelta(days=int(form_data["expiration_date"]))
         expiration_date_str = expiration_date.isoformat()
         with rx.session() as session:
-            new_article = FreezerContent(category=form_data['category'],
-                                         article=form_data['article'],
-                                         add_date=current_date_iso_str,
-                                         expiration_date=expiration_date_str,
-                                         comment=form_data['comment'])
-            session.add(new_article)
+            for i in range(int(form_data["quantity"])):
+                new_article = FreezerContent(category=form_data['category'],
+                                             article=form_data['article'],
+                                             add_date=current_date_iso_str,
+                                             expiration_date=expiration_date_str,
+                                             comment=form_data['comment'])
+                session.add(new_article)
             session.commit()
-            logger.debug(f"Added article: {new_article}")
+        logger.debug(f"Added article: {new_article}")
 
         # upsert this new expiration date into the default expiration table
         this_article_expiration = DefaultExpiration(category=form_data['category'],
@@ -133,3 +188,10 @@ def compute_expiration_status(expiration_date: str) -> str:
     elif (expiration_date - today).days <= 10:  # Less than x days remaining
         return "almost"
     return "good"
+
+def can_be_cat_to_int(value: str) -> bool:
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
