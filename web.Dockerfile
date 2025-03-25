@@ -2,8 +2,12 @@ FROM python:3.12 AS builder
 
 WORKDIR /app
 
-COPY . .
+COPY requirements.txt .
+
 RUN pip install -r requirements.txt
+
+COPY . .
+
 RUN reflex export --frontend-only --no-zip
 
 FROM nginx
