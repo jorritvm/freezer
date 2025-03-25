@@ -3,6 +3,10 @@ import reflex as rx
 from sqlmodel import Session, select
 
 
+##############################
+# data models
+##############################
+
 class Category(rx.Model, table=True):
     category: str
 
@@ -19,6 +23,8 @@ class FreezerContent(rx.Model, table=True):
     comment: str
 
 
+##############################
+# initial data
 ##############################
 
 def populate_default_categories():
