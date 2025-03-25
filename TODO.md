@@ -2,11 +2,6 @@
 
 ## Backlog (most urgent on top)
 - add an edit window to the content list
-
-- identify issues for mobile
-- fix mobile screen height - no scrolling!
-- set up docker deployment
-- deploy on homeserver
 - nice to have: make the epxiration status an enum instead of a string
 - clean up codebase, add some docstrings
 
@@ -14,6 +9,10 @@
 
 
 ## Done (most recent on top)
+- set up docker deployment
+- deploy on homeserver
+- make article lower case for case matching!
+- fix mobile screen height - no scrolling!
 - improve article_add page by proactively listing default expiration duration
 - remember non submitted input form when going back and forth between pages
 - wipe the form when an article is added successfully

@@ -38,3 +38,11 @@ FRONTEND_PORT=3001 sets the http port
 - after checking the migration script you can execute it using `reflex db migrate`
 - populate with default data: `python freezer\models.py`
 
+## docker
+- set up following this guide: https://reflex.dev/blog/2024-10-8-self-hosting-reflex-with-docker/
+- composing 3 containers 
+  - frontend
+  - backend
+  - redis
+- run it: `docker compose up ` 
+- after modifying the code, rebuild it using `docker compose up --build` 

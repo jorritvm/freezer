@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      dockerfile: Dockerfile
+    ports:
+     - 8000:8000
+    volumes:
+      - ./database:/app/database
+    depends_on:
+     - redis
+  frontend:
+    build:
+      dockerfile: web.Dockerfile
+    ports:
+      - 3000:2102
+    depends_on:
+      - backend
+  redis:
+    image: redis
