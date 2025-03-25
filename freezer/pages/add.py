@@ -38,8 +38,9 @@ def add_product() -> rx.Component:
                     placeholder="Type extra info hier...",
                     name="comment",
                     value=State.add_comment,  # Use state variable
+                    on_change=lambda value: State.set_add_comment(value),
                     width="100vw",
-                    height="40vh",
+                    height="30vh",
                 ),
                 rx.button(
                     "Toevoegen",

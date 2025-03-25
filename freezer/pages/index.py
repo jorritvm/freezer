@@ -12,7 +12,7 @@ def index() -> rx.Component:
                 ),
                 color_scheme="indigo",
                 width="100vw",
-                height="45vh",
+                height="40dvh",
                 font_size="2em",  # Increase font size
                 on_click=lambda: rx.redirect("/content/all/expiration_date"),
             ),
@@ -24,7 +24,7 @@ def index() -> rx.Component:
                 ),
                 color_scheme="teal",
                 width="100vw",
-                height="45vh",
+                height="40dvh",
                 font_size="2em",  # Increase font size
                 on_click=lambda: rx.redirect("/add"),
             ),

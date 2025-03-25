@@ -39,7 +39,7 @@ class State(rx.State):
         self.add_category = value
         self.update_expected_expiration_date()
     def set_add_article(self, value: str):
-        self.add_article = value
+        self.add_article = value.lower()
         self.update_expected_expiration_date()
     def set_add_expiration_date(self, value: str):
         self.add_expiration_date = value
