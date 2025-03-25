@@ -12,7 +12,7 @@ services:
     build:
       dockerfile: web.Dockerfile
     ports:
-      - 3000:2102
+      - 2156:2156
     depends_on:
       - backend
   redis:
